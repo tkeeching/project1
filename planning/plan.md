@@ -11,6 +11,8 @@
 3. [ ] create test case to simulate all possible moves
 4. [ ] apply css styling
 
+## Roadblocks
+1. instead of waiting for all 9 cells to be filled, find a way to predict the winner on the fly and stop game once its a draw
 
 
 ## Game Logic
@@ -69,3 +71,4 @@
 | [1][0] | [1][1] | [1][2] | [1][3] |
 | [2][0] | [2][1] | [2][2] | [2][3] |
 | [3][0] | [3][1] | [3][2] | [3][3] |
+
