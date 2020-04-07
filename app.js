@@ -1,9 +1,9 @@
 console.log('tic tic tic');
 
 var gameBoard = [
-  ['x', 'x', 'x'],
-  ['x', 'x', 'x'],
-  ['x', 'x', 'x'],
+  ['', '', ''],
+  ['', '', ''],
+  ['', '', ''],
 ]
 
 var countXInFirstRow = 0;
@@ -62,9 +62,42 @@ gameBoard.forEach( (column) => {
   })
 })
 
+// checks (safe to delete)
 console.log(countXInFirstRow);
 console.log(countXInSecondRow);
 console.log(countXInThirdRow);
 console.log(countXInFirstColumn);
 console.log(countXInSecondColumn);
 console.log(countXInThirdColumn);
+
+
+// pushing to rows
+var player = 1;
+
+if (player === 1) {
+  
+}
+
+// add event listeners to game board
+var gameCell = document.querySelectorAll('.column');
+
+var playerTurn = 1;
+var movesLeft = 9;
+
+var handlePlay = (e) => {
+  if (playerTurn === 1 && movesLeft > 0) {
+    e.target.classList.toggle('player-one');
+    playerTurn = 2;
+    movesLeft--;
+  } else if (playerTurn === 2 && movesLeft > 0) {
+    e.target.classList.toggle('player-two');
+    playerTurn = 1;
+    movesLeft--;
+  }
+}
+
+gameCell.forEach( (cell) => {
+  cell.addEventListener('click', handlePlay);
+})
+
+
