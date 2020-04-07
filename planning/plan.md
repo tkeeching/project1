@@ -54,11 +54,13 @@
 ## Design Consideration
 1. Game board layout
 - option 1 
+| --- | --- | --- |
 | [0][0] | [0][1] | [0][2] |
 | [1][0] | [1][1] | [1][2] |
 | [2][0] | [2][1] | [2][2] |
 
 - option 2 - additional [0] row and [0] column as dummy cell to allow for meaningful game cell indices
+| --- | --- | --- | --- |
 | [0][0] | [0][1] | [0][2] | [0][3] |
 | [1][0] | [1][1] | [1][2] | [1][3] |
 | [2][0] | [2][1] | [2][2] | [2][3] |
