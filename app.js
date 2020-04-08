@@ -15,9 +15,9 @@ var countXInSecondColumn = 0;
 var countXInThirdColumn = 0;
 
 // check row
-gameBoard.forEach( (row, index) => {
+gameBoard.forEach((row, index) => {
   console.log(row);
-  row.forEach( (cell) => {
+  row.forEach((cell) => {
     if (index === 0) {
       if (cell === 'x') {
         countXInFirstRow++;
@@ -39,9 +39,9 @@ gameBoard.forEach( (row, index) => {
 })
 
 // check column
-gameBoard.forEach( (column) => {
+gameBoard.forEach((column) => {
   console.log(column);
-  column.forEach( (cell, index) => {
+  column.forEach((cell, index) => {
     if (index === 0) {
       if (cell === 'x') {
         countXInFirstColumn++;
@@ -70,34 +70,134 @@ console.log(countXInFirstColumn);
 console.log(countXInSecondColumn);
 console.log(countXInThirdColumn);
 
-
-// pushing to rows
-var player = 1;
-
-if (player === 1) {
-  
-}
-
 // add event listeners to game board
 var gameCell = document.querySelectorAll('.column');
+var newGameBtn = document.querySelector('.new-game-btn');
 
 var playerTurn = 1;
 var movesLeft = 9;
 
 var handlePlay = (e) => {
-  if (playerTurn === 1 && movesLeft > 0) {
-    e.target.classList.toggle('player-one');
-    playerTurn = 2;
-    movesLeft--;
-  } else if (playerTurn === 2 && movesLeft > 0) {
-    e.target.classList.toggle('player-two');
-    playerTurn = 1;
-    movesLeft--;
+  if (e.target.className === 'column') {
+    if (playerTurn === 1 && movesLeft > 0) {
+      e.target.classList.toggle('player-one');
+      playerTurn = 2;
+      movesLeft--;
+
+      // keep track of player 1's moves
+      var columnId = e.target.id;
+      console.log('columnId: ' + columnId);
+      switch (columnId) {
+        case '1':
+          gameBoard[0][0] = 1;
+          break;
+
+        case '2':
+          gameBoard[0][1] = 1;
+          break;
+
+        case '3':
+          gameBoard[0][2] = 1;
+          break;
+
+        case '4':
+          gameBoard[1][0] = 1;
+          break;
+
+        case '5':
+          gameBoard[1][1] = 1;
+          break;
+
+        case '6':
+          gameBoard[1][2] = 1;
+          break;
+
+        case '7':
+          gameBoard[2][0] = 1;
+          break;
+
+        case '8':
+          gameBoard[2][1] = 1;
+          break;
+
+        case '9':
+          gameBoard[2][2] = 1;
+          break;
+      }
+
+      // check for winner
+
+
+      console.log(playerTurn);
+      console.log(movesLeft);
+      console.log(gameBoard);
+    } else if (playerTurn === 2 && movesLeft > 0) {
+      e.target.classList.toggle('player-two');
+      playerTurn = 1;
+      movesLeft--;
+
+      var columnId = e.target.id;
+      console.log('columnId: ' + columnId);
+      switch (columnId) {
+        case '1':
+          gameBoard[0][0] = 2;
+          break;
+
+        case '2':
+          gameBoard[0][1] = 2;
+          break;
+
+        case '3':
+          gameBoard[0][2] = 2;
+          break;
+
+        case '4':
+          gameBoard[1][0] = 2;
+          break;
+
+        case '5':
+          gameBoard[1][1] = 2;
+          break;
+
+        case '6':
+          gameBoard[1][2] = 2;
+          break;
+
+        case '7':
+          gameBoard[2][0] = 2;
+          break;
+
+        case '8':
+          gameBoard[2][1] = 2;
+          break;
+
+        case '9':
+          gameBoard[2][2] = 2;
+          break;
+      }
+
+      console.log(playerTurn);
+      console.log(movesLeft);
+      console.log(gameBoard);
+    }
+  } else {
+    return 'Invalid move';
   }
 }
 
-gameCell.forEach( (cell) => {
+var handleNewGame = () => {
+  playerTurn = 1;
+  movesLeft = 9;
+  gameCell.forEach((cell) => {
+    cell.className = 'column';
+  })
+}
+
+gameCell.forEach((cell) => {
   cell.addEventListener('click', handlePlay);
 })
+
+newGameBtn.addEventListener('click', handleNewGame);
+
 
 
