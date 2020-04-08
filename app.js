@@ -136,11 +136,12 @@ var checkBackwardDiagonalForWinner = () => {
 // add event listeners to game board
 var gameCell = document.querySelectorAll('.column');
 var newGameBtn = document.querySelector('.new-game-btn');
+var trainingBtn = document.querySelector('.training-btn');
 
 var playerTurn = 1;
 var movesLeft = 9;
 
-var handlePlay = (e) => {
+var handlePlay = (e, waitForPlayerTimerId) => {
   if (e.target.className === 'column' && winner === 0) {
     if (playerTurn === 1 && movesLeft > 0) {
       e.target.classList.toggle('player-one');
@@ -186,12 +187,6 @@ var handlePlay = (e) => {
           gameBoard[2][2] = 1;
           break;
       }
-      
-      // // check for winner
-      // checkRowsForWinner();
-      // checkColumnsForWinner();
-      // checkForwardDiagonalForWinner();
-      // checkBackwardDiagonalForWinner();
 
       if (movesLeft === 0 && winner === 0) {
         console.log('its a draw!');
@@ -241,9 +236,6 @@ var handlePlay = (e) => {
           break;
       }
 
-      // check for winner
-
-
       if (movesLeft === 0 && winner === 0) {
         console.log('its a draw!');
       }
@@ -278,11 +270,11 @@ var handleNewGame = () => {
   })
 }
 
+
 gameCell.forEach((cell) => {
   cell.addEventListener('click', handlePlay);
 })
 
 newGameBtn.addEventListener('click', handleNewGame);
-
 
 
