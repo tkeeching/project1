@@ -305,12 +305,14 @@ var handleNewGame = () => {
 
   gameBoardDisplay.forEach( (row) => {
     row.style.height = 'initial';
+    row.style.backgroundColor = 'white';
   })
 
   gameCell.forEach( (cell) => {
-    cell.style.border = '1px solid black';
+    cell.style.border = '1px solid lightgray';
   })
 
+  newGameBtn.textContent = 'Restart';
   announcementText.textContent = `Player ${ playerTurn }'s turn`;
 }
 
