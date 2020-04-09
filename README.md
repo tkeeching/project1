@@ -16,8 +16,8 @@ A game of tic tac toe
 - Check for winner
 - Player 1 makes their next move
 - step 2 to 5 is repeated until,
-    1.6.1 a winner is determine. in this case, game play will terminate immediately and no futher move is allowed.
-    1.6.1 if all nine tiles are occupied and there is no winner, it is a draw and the game play terminates
+    - 1.6.1 a winner is determine. in this case, game play will terminate immediately and no futher move is allowed.
+    - 1.6.1 if all nine tiles are occupied and there is no winner, it is a draw and the game play terminates
 
 2. Check winner logic
   2.1 The logic to check for winner is broken in four parts,
