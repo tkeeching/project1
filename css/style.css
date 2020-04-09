@@ -22,7 +22,7 @@ div.column {
 .game-board {
   display: grid;
   grid-template-columns: 20px 1fr 20px;
-  grid-template-rows: 150px 50px repeat(4, 1fr);
+  grid-template-rows: 100px 200px 50px repeat(3, 1fr) 100px;
   width: 60%;
   margin: 0 auto;
   background-color: rgb(228, 246, 252);
@@ -36,10 +36,20 @@ div.column {
 
 .tic {
   color: lightsalmon;
+  background-color: lightsalmon;
 }
 
 .toe {
   color: lightgreen;
+  background-color: lightgreen;
+}
+
+.fun-fact {
+  grid-column: 2/ span 2;;
+  grid-row: 2 / span 2;
+  text-align: center;
+  padding: 0 300px;
+  color: gray;
 }
 
 .row.game-over {
@@ -56,15 +66,15 @@ div.column {
 }
 
 .row:nth-of-type(1) {
-  grid-row: 3 / span 1;
-}
-
-.row:nth-of-type(2) {
   grid-row: 4 / span 1;
 }
 
-.row:nth-of-type(3) {
+.row:nth-of-type(2) {
   grid-row: 5 / span 1;
+}
+
+.row:nth-of-type(3) {
+  grid-row: 6 / span 1;
 }
 
 div.buttons, div.buttons > div {
@@ -77,10 +87,9 @@ div.buttons, div.buttons > div {
   grid-template-rows: 1fr;
   width: 100%;
   grid-column: 2 / span 1;
-  grid-row: 6 / span 1;
+  grid-row: 7 / span 1;
   justify-content: center;
   align-content: center;
-  padding-bottom: 20px;
 }
 
 .buttons > div {
@@ -137,7 +146,7 @@ div.column {
 /* game over element */
 .announcement-text {
   grid-column: 2 / span 1;
-  grid-row: 2 / span 1;
+  grid-row: 3 / span 1;
   text-align: center;
   margin-top: 0;
   opacity: 100%;

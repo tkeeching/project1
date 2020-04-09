@@ -154,6 +154,7 @@ var newGameBtn = document.querySelector('.new-game-btn');
 var trainingBtn = document.querySelector('.training-btn');
 var gameBoardDisplay = document.querySelectorAll('.row');
 var announcementText = document.querySelector('.announcement-text');
+var funFactDisplay = document.querySelector('.fun-fact-text');
 
 var playerTurn = 1;
 var movesLeft = 9;
@@ -326,6 +327,8 @@ var handleWelcome = () => {
   gameCell.forEach( (cell) => {
     cell.style.border = 'none';
   })
+
+  funFactDisplay.textContent = `The word "Tic" is kind of an Americanization. In the 1800s, the game also had the name in England of "Tit-Tat-Toe". A "tit" was another word for a slap. "Tat" meant retribution, such as "going tit-for-tat". "Toe" was the name for a third thing in a row.`;
 
   announcementText.textContent = 'Click New Game to start...';
 }
