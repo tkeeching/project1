@@ -1,5 +1,3 @@
-console.log('tic tic tic');
-
 var gameBoard = [
   ['', '', ''],
   ['', '', ''],
@@ -7,6 +5,7 @@ var gameBoard = [
 ]
 
 var winner = 0;
+var previousWinner = 0;
 var playerOneRowCheck = 0;
 var playerOneColumnCheck = 0;
 var playerOneForwardDiagCheck = 0;
@@ -16,10 +15,12 @@ var playerTwoColumnCheck = 0;
 var playerTwoForwardDiagCheck = 0;
 var playerTwoBackwardDiagCheck = 0;
 
+// Declare game logic functions
 var checkRowsForWinner = () => {
   gameBoard.forEach( (row, rowIndex) => {
     playerOneRowCheck = 0;
     playerTwoRowCheck = 0;
+
     row.forEach( (cell, columnIndex) => {
       if (cell === 1) {
         playerOneRowCheck++;
@@ -46,6 +47,7 @@ var checkColumnsForWinner = () => {
   transposedGameBoard.forEach( (row, rowIndex) => {
     playerOneColumnCheck = 0;
     playerTwoColumnCheck = 0;
+
     row.forEach( (cell, columnIndex) => {
       if (cell === 1) {
         playerOneColumnCheck++;
@@ -67,6 +69,7 @@ var checkColumnsForWinner = () => {
 var checkForwardDiagonalForWinner = () => {
   playerOneForwardDiagCheck = 0;
   playerTwoForwardDiagCheck = 0;
+
   for (var i = 0; i < gameBoard.length; i++) {
     if (gameBoard[i][i] === 1) {
       playerOneForwardDiagCheck++;
@@ -82,15 +85,13 @@ var checkForwardDiagonalForWinner = () => {
         console.log('forw congrats, player ' + winner);
         return 'Game ends';
       }
-    } else {
-      playerOneForwardDiagCheck = 0;
-      playerTwoForwardDiagCheck = 0;
-      return
     }
   }
 }
 
 var checkBackwardDiagonalForWinner = () => {
+  playerOneBackwardDiagCheck = 0;
+  playerTwoBackwardDiagCheck = 0;
   if (gameBoard[0][2] === 1) {
     playerOneBackwardDiagCheck++;
   } else if (gameBoard[0][2] === 2) {
@@ -117,7 +118,7 @@ var checkBackwardDiagonalForWinner = () => {
       winner = 1;
       console.log('back congrats player ' + winner);
       return 'Game ends';
-    } 
+    }
   } else if (gameBoard[2][0] === 2) {
     playerTwoBackwardDiagCheck++;
     if (playerTwoBackwardDiagCheck === 3) {
@@ -125,18 +126,34 @@ var checkBackwardDiagonalForWinner = () => {
       console.log('back congrats player ' + winner);
       return 'Game ends';
     }
-  } else {
-    playerOneBackwardDiagCheck = 0;
-    playerTwoBackwardDiagCheck = 0;
-    return
   }
 }
 
+var announceWinner = () => {
+  if (winner === 1) {
+  gameBoardDisplay.forEach( (row) => {
+    row.classList.toggle('game-over');
+  })
+  announcementText.textContent = `Player ${ winner } wins!`;
+} else if (winner === 2) {
+  gameBoardDisplay.forEach( (row) => {
+    row.classList.toggle('game-over');
+  })
+  announcementText.textContent = `Player ${ winner } wins!`;
+} else if (movesLeft === 0 && winner === 0) {
+  gameBoardDisplay.forEach( (row) => {
+    row.classList.toggle('game-over');
+  })
+  announcementText.textContent = `It's a draw`;
+}
+}
 
-// add event listeners to game board
+// add event handlers to game board
 var gameCell = document.querySelectorAll('.column');
 var newGameBtn = document.querySelector('.new-game-btn');
 var trainingBtn = document.querySelector('.training-btn');
+var gameBoardDisplay = document.querySelectorAll('.row');
+var announcementText = document.querySelector('.announcement-text');
 
 var playerTurn = 1;
 var movesLeft = 9;
@@ -147,6 +164,8 @@ var handlePlay = (e, waitForPlayerTimerId) => {
       e.target.classList.toggle('player-one');
       playerTurn = 2;
       movesLeft--;
+
+      announcementText.textContent = `Player ${ playerTurn }'s turn`;
 
       // keep track of player 1's moves
       var columnId = e.target.id;
@@ -188,14 +207,11 @@ var handlePlay = (e, waitForPlayerTimerId) => {
           break;
       }
 
-      if (movesLeft === 0 && winner === 0) {
-        console.log('its a draw!');
-      }
-
     } else if (playerTurn === 2 && movesLeft > 0) {
       e.target.classList.toggle('player-two');
       playerTurn = 1;
       movesLeft--;
+      announcementText.textContent = `Player ${ playerTurn }'s turn`;
 
       var columnId = e.target.id;
       switch (columnId) {
@@ -236,9 +252,7 @@ var handlePlay = (e, waitForPlayerTimerId) => {
           break;
       }
 
-      if (movesLeft === 0 && winner === 0) {
-        console.log('its a draw!');
-      }
+
     }
   } else {
     return 'Invalid move';
@@ -248,9 +262,18 @@ var handlePlay = (e, waitForPlayerTimerId) => {
   checkColumnsForWinner();
   checkForwardDiagonalForWinner();
   checkBackwardDiagonalForWinner();
+  announceWinner();
+
+  previousWinner = winner;
+
+  if (winner === 0 && movesLeft === 0) {
+    console.log('its a draw!');
+  }
 }
 
 var handleNewGame = () => {
+  console.log('it\'s a new game');
+
   gameBoard = [
     ['', '', ''],
     ['', '', ''],
@@ -262,19 +285,52 @@ var handleNewGame = () => {
   playerOneColumnCheck = 0;
   playerOneForwardDiagCheck = 0;
   playerOneBackwardDiagCheck = 0;
-  playerTurn = 1;
   movesLeft = 9;
+
+  if (previousWinner === 1) {
+    playerTurn = 2;
+  } else if (previousWinner === 2){
+    playerTurn = 1;
+  } else {
+    playerTurn = Math.ceil(Math.random() * 2);
+  }
 
   gameCell.forEach((cell) => {
     cell.className = 'column';
   })
+
+  gameBoardDisplay.forEach( (row) => {
+    row.classList.remove('game-over');
+  })
+
+  gameBoardDisplay.forEach( (row) => {
+    row.style.height = 'initial';
+  })
+
+  gameCell.forEach( (cell) => {
+    cell.style.border = '1px solid black';
+  })
+
+  announcementText.textContent = `Player ${ playerTurn }'s turn`;
 }
 
+var handleWelcome = () => {
+  console.log('tic tic tic');
+
+  gameBoardDisplay.forEach( (row) => {
+    row.style.height = '0px';
+  })
+
+  gameCell.forEach( (cell) => {
+    cell.style.border = 'none';
+  })
+
+  announcementText.textContent = 'Click New Game to start...';
+}
 
 gameCell.forEach((cell) => {
   cell.addEventListener('click', handlePlay);
 })
 
 newGameBtn.addEventListener('click', handleNewGame);
-
-
+window.addEventListener('load', handleWelcome);

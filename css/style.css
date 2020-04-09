@@ -3,39 +3,49 @@
   box-sizing: border-box;
 }
 
-div.game-board {
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+div.row {
   border: none;
 }
 
-div {
+div.column {
   width: 100px;
   height: 100px;
   border: 1px solid gray;
 }
 
-/* game board */
+/* game board layout*/
 .game-board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 150px 50px repeat(4, 1fr);
+}
+
+.row.game-over {
+  opacity: 30%;
 }
 
 .row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 100px);
+  grid-column: 2 / span 1;
+  justify-content: center;
   width: 100%;
 }
 
 .row:nth-of-type(1) {
-  grid-row: 1 / span 1;
+  grid-row: 3 / span 1;
 }
 
 .row:nth-of-type(2) {
-  grid-row: 2 / span 1;
+  grid-row: 4 / span 1;
 }
 
 .row:nth-of-type(3) {
-  grid-row: 3 / span 1;
+  grid-row: 5 / span 1;
 }
 
 div.buttons, div.buttons > div {
@@ -46,15 +56,42 @@ div.buttons, div.buttons > div {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  grid-column: 1 / span 3;
-  grid-row: 4 / span 1;
+  width: 100%;
+  grid-column: 2 / span 1;
+  grid-row: 6 / span 1;
+  justify-content: center;
+  align-content: center;
 }
 
-/* game play */
+.buttons > div {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+
+/* game play element*/
+div.row {
+  transition: color 0.3s ease-in-out;
+}
+
+div.column {
+  transition: all 0.2s ease-in-out;
+}
+
 .player-one {
-  background-color: red;
+  background-color: lightsalmon;
 }
 
 .player-two {
-  background-color: green;
+  background-color: lightgreen;
+}
+
+/* game over element */
+.announcement-text {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  text-align: center;
+  margin-top: 0;
+  opacity: 100%;
 }
