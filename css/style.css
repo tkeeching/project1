@@ -60,6 +60,7 @@ div.column {
 
   .game-board {
     width: 100%;
+    grid-template-rows: 100px 0px 50px repeat(3, 1fr) 100px;
   }
 
 }
