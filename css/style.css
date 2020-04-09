@@ -52,6 +52,18 @@ div.column {
   color: gray;
 }
 
+@media only screen and (max-width: 600px) {
+
+  .fun-fact {
+    display: none;
+  }
+
+  .game-board {
+    width: 100%;
+  }
+
+}
+
 .row.game-over {
   opacity: 20%;
 }
