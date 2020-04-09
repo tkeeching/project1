@@ -1,7 +1,7 @@
 # Tic Tac Toe
 A game of tic tac toe
 
-[Demo](https://https://tkeeching.github.io/project1/)
+[Demo](https://tkeeching.github.io/project1/)
 
 ## Stack
 - HTML
@@ -10,12 +10,12 @@ A game of tic tac toe
 
 ## Game Logic
 1. Game play
-  1.1 The game starts with player 1 making the first move by clicking on any of the nine tiles, a digit '1' is assigned to the corresponding cell on the game board which is stored in an array that consists of three 1x3 array.
-  1.2 Check is immediately carried out to determine if there is a winner
-  1.3 Player 2 makes their first move, a digit '2' is assigned to the corresponding cell which is stored in the above-mentioned array. 
-  1.4 Check for winner
-  1.5 Player 1 makes their next move
-  1.6 step 2 to 5 is repeated until,
+- The game starts with player 1 making the first move by clicking on any of the nine tiles, a digit '1' is assigned to the corresponding cell on the game board which is stored in an array that consists of three 1x3 array.
+- Check is immediately carried out to determine if there is a winner
+- Player 2 makes their first move, a digit '2' is assigned to the corresponding cell which is stored in the above-mentioned array. 
+- Check for winner
+- Player 1 makes their next move
+- step 2 to 5 is repeated until,
     1.6.1 a winner is determine. in this case, game play will terminate immediately and no futher move is allowed.
     1.6.1 if all nine tiles are occupied and there is no winner, it is a draw and the game play terminates
 
