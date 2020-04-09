@@ -34,6 +34,14 @@ div.column {
   text-align: center;
 }
 
+.tic {
+  color: lightsalmon;
+}
+
+.toe {
+  color: lightgreen;
+}
+
 .row.game-over {
   opacity: 20%;
 }
@@ -92,11 +100,12 @@ div.buttons, div.buttons > div {
 }
 
 .new-game-btn:hover {
-  background-color: rgb(191, 199, 247);
+  background-color:  rgb(195, 203, 248);
   font-weight: 600;
 }
 
 .training-btn {
+  display: none;
   border: none;
   background-color: rgb(215, 220, 247);
   width: 120px;
