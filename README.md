@@ -20,7 +20,7 @@ A game of tic tac toe
     - if all nine tiles are occupied and there is no winner, it is a draw and the game play terminates.
 
 2. Check winner logic
-- The logic to check for winner is broken in four parts,
+- The logic to check for winner is broken down into four parts,
     - Part 1 - Check rows - interate through each row, if a row consist of 3 '1's - winner is player 1, if a row consists of 3 '2's - winner is player 2.
     - Part 2 - Check columns - the game board is transposed and stored under a new variable. The columns now become the rows. A similar checking algorithm used in Part 1 is applied here to check for winner.
     - Part 3 - Check forward diagonal - the cells in the forward diagonal are being checked by utilising their row and column indices respectively which happened to be identical in each grid, ie. [0][0], [1][1] and [2][2] for a 3x3 grids. If those cells consist of 3 '1's - winner is player 1, if they consist of 3 '2's - winner is player 2.
