@@ -29,5 +29,10 @@ A game of tic tac toe
 
 ## Unsolved Problems
 1. Implementation of scoreboard
+- Scores are already being recorded internally, next step is to extract these information and display them on the screen.
 2. Implementation of training mode that allows player to play against computer.
+- This can be implemented with the following 3 cases,
+    - Case 1 - Dumb algorithm: Randomly generate a number between 1 - 9 which corresponds to the cell number on the game board. If the particular cell has not been played, computer will play that move and turn is over. Repeat until there is a winner.
+    - Case 2 - Winning algorithm: Perform checks to find winning moves, ie. find row/column/diagonal with the most number of '1' (computer's token), computer will play the remaining cells to complete the set of three.
+    - Case 3 - Blocking algorithm: Perform checks to determind Player is about to win, ie. find row/column/diagonal with the most number of '2' (player's token), computer will play the remaining cells to prevent Player from winning.
 
