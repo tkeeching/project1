@@ -65,7 +65,7 @@ div.column {
 
 }
 
-.row.game-over {
+.column.game-over {
   opacity: 20%;
 }
 

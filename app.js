@@ -132,12 +132,22 @@ var checkBackwardDiagonalForWinner = () => {
 var announceWinner = () => {
   if (winner === 1) {
   gameBoardDisplay.forEach( (row) => {
-    row.classList.toggle('game-over');
+    for (var i = 0; i < row.children.length; i++) {
+      var cell = row.children[i];
+      if (cell.classList.contains('player-one') === false) {
+        cell.classList.toggle('game-over');
+      }
+    }
   })
   announcementText.textContent = `Player ${ winner } wins!`;
 } else if (winner === 2) {
   gameBoardDisplay.forEach( (row) => {
-    row.classList.toggle('game-over');
+    for (var i = 0; i < row.children.length; i++) {
+      var cell = row.children[i];
+      if (cell.classList.contains('player-two') === false) {
+        cell.classList.toggle('game-over');
+      }
+    }
   })
   announcementText.textContent = `Player ${ winner } wins!`;
 } else if (movesLeft === 0 && winner === 0) {
