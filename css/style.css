@@ -15,6 +15,7 @@ div.column {
   width: 100px;
   height: 100px;
   border: 1px solid lightgray;
+  cursor: pointer;
 }
 
 
@@ -120,6 +121,7 @@ div.buttons, div.buttons > div {
   border-radius: 10px;
   font-size: 1.2rem;
   color: rgb(66, 64, 64);
+  cursor: pointer;
 }
 
 .new-game-btn:hover, .training-btn:hover {
