@@ -32,6 +32,7 @@ div.column {
 .game-title {
   grid-column: 2 / span 1;
   text-align: center;
+
 }
 
 .tic {
@@ -121,12 +122,16 @@ div.buttons, div.buttons > div {
   color: rgb(66, 64, 64);
 }
 
-.new-game-btn:hover {
+.new-game-btn:hover, .training-btn:hover {
   background-color:  rgb(195, 203, 248);
   font-weight: 600;
 }
 
-.training-btn {
+.training-mode {
+  color: green;
+}
+
+/* .training-btn {
   display: none;
   border: none;
   background-color: rgb(215, 220, 247);
@@ -136,7 +141,7 @@ div.buttons, div.buttons > div {
   font-size: 1.2rem;
   color: rgb(66, 64, 64);
   opacity: 40%;
-}
+} */
 
 /* game play element*/
 div.row {

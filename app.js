@@ -15,6 +15,15 @@ var playerTwoColumnCheck = 0;
 var playerTwoForwardDiagCheck = 0;
 var playerTwoBackwardDiagCheck = 0;
 
+// AI variables
+var aiEnabled = false;
+var aiRowWinScore = 0;
+var aiColumnWinScore = 0;
+var aiForwardDiagWinScore = 0;
+var aiBackwardDiagWinScore = 0;
+var randomRowId = 0;
+var randomColumnId = 0;
+
 // Declare game logic functions
 var checkRowsForWinner = () => {
   gameBoard.forEach( (row, rowIndex) => {
@@ -24,6 +33,7 @@ var checkRowsForWinner = () => {
     row.forEach( (cell, columnIndex) => {
       if (cell === 1) {
         playerOneRowCheck++;
+        aiRowWinScore--;
         if (playerOneRowCheck === 3) {
           winner = 1;
           console.log('row congrats, player ' + winner);
@@ -155,6 +165,7 @@ var announceWinner = () => {
     row.classList.toggle('game-over');
   })
   announcementText.textContent = `It's a draw`;
+  console.log('it\'s a draw');
 }
 }
 
@@ -165,11 +176,38 @@ var trainingBtn = document.querySelector('.training-btn');
 var gameBoardDisplay = document.querySelectorAll('.row');
 var announcementText = document.querySelector('.announcement-text');
 var funFactDisplay = document.querySelector('.fun-fact-text');
+var titleText = document.querySelector('.game-title');
 
 var playerTurn = 1;
 var movesLeft = 9;
 
-var handlePlay = (e, waitForPlayerTimerId) => {
+var aiPlay = () => {
+  randomRowId = Math.round(Math.random() * 2);
+  randomColumnId = Math.round(Math.random() * 2);
+
+  while (gameBoard[randomRowId][randomColumnId] === 1) {
+    randomRowId = Math.round(Math.random() * 2);
+    randomColumnId = Math.round(Math.random() * 2);
+  }
+
+  if (gameBoard[randomRowId][randomColumnId] === 2) {
+    aiPlay();
+  } else {
+    gameBoard[randomRowId][randomColumnId] = 2;
+    gameBoardDisplay[randomRowId].children[randomColumnId].classList.add('player-two');
+    playerTurn = 1;
+    movesLeft--;
+    announcementText.textContent = `Player ${ playerTurn }'s turn`;
+  }
+
+  checkRowsForWinner();
+  checkColumnsForWinner();
+  checkForwardDiagonalForWinner();
+  checkBackwardDiagonalForWinner();
+  announceWinner();
+}
+
+var handlePlay = (e) => {
   if (e.target.className === 'column' && winner === 0) {
     if (playerTurn === 1 && movesLeft > 0) {
       e.target.classList.toggle('player-one');
@@ -219,51 +257,51 @@ var handlePlay = (e, waitForPlayerTimerId) => {
       }
 
     } else if (playerTurn === 2 && movesLeft > 0) {
-      e.target.classList.toggle('player-two');
-      playerTurn = 1;
-      movesLeft--;
-      announcementText.textContent = `Player ${ playerTurn }'s turn`;
+      if (!aiEnabled) {
+        e.target.classList.toggle('player-two');
+        playerTurn = 1;
+        movesLeft--;
+        announcementText.textContent = `Player ${ playerTurn }'s turn`;
 
-      var columnId = e.target.id;
-      switch (columnId) {
-        case '1':
-          gameBoard[0][0] = 2;
-          break;
+        var columnId = e.target.id;
+        switch (columnId) {
+          case '1':
+            gameBoard[0][0] = 2;
+            break;
 
-        case '2':
-          gameBoard[0][1] = 2;
-          break;
+          case '2':
+            gameBoard[0][1] = 2;
+            break;
 
-        case '3':
-          gameBoard[0][2] = 2;
-          break;
+          case '3':
+            gameBoard[0][2] = 2;
+            break;
 
-        case '4':
-          gameBoard[1][0] = 2;
-          break;
+          case '4':
+            gameBoard[1][0] = 2;
+            break;
 
-        case '5':
-          gameBoard[1][1] = 2;
-          break;
+          case '5':
+            gameBoard[1][1] = 2;
+            break;
 
-        case '6':
-          gameBoard[1][2] = 2;
-          break;
+          case '6':
+            gameBoard[1][2] = 2;
+            break;
 
-        case '7':
-          gameBoard[2][0] = 2;
-          break;
+          case '7':
+            gameBoard[2][0] = 2;
+            break;
 
-        case '8':
-          gameBoard[2][1] = 2;
-          break;
+          case '8':
+            gameBoard[2][1] = 2;
+            break;
 
-        case '9':
-          gameBoard[2][2] = 2;
-          break;
+          case '9':
+            gameBoard[2][2] = 2;
+            break;
+        }
       }
-
-
     }
   } else {
     return 'Invalid move';
@@ -275,6 +313,10 @@ var handlePlay = (e, waitForPlayerTimerId) => {
   checkBackwardDiagonalForWinner();
   announceWinner();
 
+  if (aiEnabled && winner === 0) {
+    setTimeout(aiPlay, 600);
+  }
+ 
   previousWinner = winner;
 
   if (winner === 0 && movesLeft === 0) {
@@ -325,6 +367,10 @@ var handleNewGame = () => {
 
   newGameBtn.textContent = 'Restart';
   announcementText.textContent = `Player ${ playerTurn }'s turn`;
+
+  if (aiEnabled && playerTurn === 2) {
+    setTimeout(aiPlay, 1000);
+  }
 }
 
 var handleWelcome = () => {
@@ -343,9 +389,21 @@ var handleWelcome = () => {
   announcementText.textContent = 'Click New Game to start...';
 }
 
+var handleTraining = (e) => {
+  aiEnabled = !aiEnabled;
+  if (aiEnabled) {
+    console.log('AI enabled.');
+  } else {
+    console.log('AI disabled.')
+  }
+  
+  e.target.classList.toggle('training-mode');
+}
+
 gameCell.forEach((cell) => {
   cell.addEventListener('click', handlePlay);
 })
 
 newGameBtn.addEventListener('click', handleNewGame);
 window.addEventListener('load', handleWelcome);
+trainingBtn.addEventListener('click', handleTraining);
